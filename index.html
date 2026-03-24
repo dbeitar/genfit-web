@@ -10,6 +10,9 @@
     --gold: #d4a017;
     --gold-light: #f0c040;
     --gold-dark: #a07810;
+    --pink: #AB1A7B;
+    --pink-light: #d4229a;
+    --pink-dark: #7a1258;
     --bg-dark: #0a0a0a;
     --bg-card: #111111;
     --bg-section: #141414;
@@ -31,20 +34,23 @@
   }
   .nav-logo {
     font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.15em;
-    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    background: linear-gradient(135deg, var(--gold-light), var(--gold) 50%, var(--pink));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
   .nav-links { display: flex; gap: 32px; list-style: none; }
   .nav-links a { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
   .nav-links a:hover { color: var(--gold-light); }
-  .nav-cta { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: #000 !important; padding: 8px 20px; border-radius: 2px; }
+  .nav-cta { background: linear-gradient(135deg, var(--gold), var(--pink)); color: #fff !important; padding: 8px 20px; border-radius: 2px; }
   @media (max-width: 768px) { .nav-links { display: none; } nav { padding: 14px 20px; } }
 
   /* HERO */
   .hero {
     min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
     text-align: center; padding: 120px 24px 80px; position: relative; overflow: hidden;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, #2a1a00 0%, #0a0a0a 70%);
+    background: radial-gradient(ellipse 70% 60% at 15% 0%, #2a1a00 0%, transparent 60%),
+                radial-gradient(ellipse 60% 55% at 85% 0%, #3a0a28 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 50% 80%, #1a0820 0%, transparent 70%),
+                #0a0a0a;
   }
   .hero::before {
     content: ''; position: absolute; inset: 0;
@@ -53,31 +59,31 @@
     pointer-events: none;
   }
   .hero-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; animation: orbFloat 8s ease-in-out infinite; }
-  .orb1 { width: 400px; height: 400px; background: rgba(212,160,23,0.08); top: -100px; left: -100px; }
-  .orb2 { width: 300px; height: 300px; background: rgba(212,160,23,0.06); bottom: 0; right: -80px; animation-delay: 3s; }
+  .orb1 { width: 400px; height: 400px; background: rgba(212,160,23,0.1); top: -100px; left: -100px; }
+  .orb2 { width: 350px; height: 350px; background: rgba(171,26,123,0.12); bottom: 0; right: -80px; animation-delay: 3s; }
   @keyframes orbFloat { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-30px) scale(1.05); } }
 
   .hero-eyebrow { font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 20px; animation: fadeUp 0.8s ease both; position: relative; z-index: 1; }
   .hero-logo {
     font-family: 'Bebas Neue', sans-serif; font-size: clamp(90px, 20vw, 200px); letter-spacing: 0.12em;
-    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, var(--pink-light) 70%, var(--pink) 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     line-height: 0.9; animation: fadeUp 0.8s 0.1s ease both; position: relative; z-index: 1;
   }
   .hero-tagline { font-size: clamp(12px, 2vw, 16px); font-weight: 300; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); margin-top: 16px; animation: fadeUp 0.8s 0.2s ease both; position: relative; z-index: 1; }
-  .hero-divider { width: 80px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 36px auto; animation: fadeUp 0.8s 0.3s ease both; position: relative; z-index: 1; }
+  .hero-divider { width: 80px; height: 2px; background: linear-gradient(90deg, var(--gold), var(--pink)); margin: 36px auto; animation: fadeUp 0.8s 0.3s ease both; position: relative; z-index: 1; }
   .hero-desc { max-width: 580px; font-size: clamp(13px,1.8vw,15px); font-weight: 300; line-height: 1.9; color: #ccc; animation: fadeUp 0.8s 0.4s ease both; position: relative; z-index: 1; margin-bottom: 40px; }
   .hero-desc strong { color: var(--gold-light); font-weight: 600; }
   .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.8s 0.5s ease both; position: relative; z-index: 1; }
 
   .btn-primary {
     display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px;
-    background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: #000;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold) 50%, var(--pink)); color: #fff;
     font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
     border-radius: 2px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 24px rgba(212,160,23,0.25);
+    box-shadow: 0 4px 24px rgba(171,26,123,0.25);
   }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(212,160,23,0.4); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(171,26,123,0.45); }
   .btn-outline {
     display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px;
     border: 1px solid var(--gold); color: var(--gold);
@@ -89,7 +95,7 @@
   /* STATS */
   .stats {
     padding: 60px 24px;
-    background: linear-gradient(90deg, #0f0a00, #1a1000, #0f0a00);
+    background: linear-gradient(90deg, #0f0a00, #180820, #0f0a00);
     border-top: 1px solid rgba(212,160,23,0.12); border-bottom: 1px solid rgba(212,160,23,0.12);
   }
   .stats-grid { display: flex; flex-wrap: wrap; justify-content: center; max-width: 900px; margin: 0 auto; }
@@ -97,7 +103,7 @@
   .stat-item:last-child { border-right: none; }
   .stat-num {
     font-family: 'Bebas Neue', sans-serif; font-size: 56px; letter-spacing: 0.05em;
-    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    background: linear-gradient(135deg, var(--gold-light), var(--pink));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1;
   }
   .stat-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-top: 6px; }
@@ -105,7 +111,7 @@
   /* SECTION HELPERS */
   .section-label {
     font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 7vw, 64px); letter-spacing: 0.1em;
-    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    background: linear-gradient(135deg, var(--gold-light), var(--gold) 50%, var(--pink));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 16px;
   }
   .section-sub { font-size: 13px; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 56px; }
@@ -129,7 +135,7 @@
     border: 1px solid rgba(212,160,23,0.15); border-radius: 4px; position: relative; overflow: hidden; transition: border-color 0.3s;
   }
   .entrenadora-card:hover { border-color: rgba(212,160,23,0.4); }
-  .entrenadora-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark)); }
+  .entrenadora-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--pink)); }
   .entrenadora-card.reverse { grid-template-columns: 1fr 280px; }
   .entrenadora-card.reverse .trainer-photo { order: 2; }
   .entrenadora-card.reverse .trainer-info { order: 1; }
@@ -151,7 +157,7 @@
   .servicios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
   .servicio-card { background: var(--bg-card); border: 1px solid rgba(212,160,23,0.12); border-radius: 4px; padding: 36px 28px; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: column; }
   .servicio-card:hover { transform: translateY(-6px); border-color: rgba(212,160,23,0.4); }
-  .servicio-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); }
+  .servicio-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--pink)); }
   .servicio-icon { font-size: 32px; margin-bottom: 16px; }
   .servicio-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.07em; color: var(--gold-light); margin-bottom: 12px; line-height: 1.2; }
   .servicio-price { display: inline-block; font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--gold); letter-spacing: 0.05em; margin-bottom: 20px; line-height: 1; }
@@ -164,7 +170,7 @@
   .proceso-steps { display: flex; flex-wrap: wrap; justify-content: center; max-width: 900px; margin: 0 auto; position: relative; }
   .proceso-steps::before { content: ''; position: absolute; top: 36px; left: 12%; right: 12%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
   .step { flex: 1; min-width: 160px; padding: 16px; position: relative; z-index: 1; }
-  .step-num { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-dark), var(--gold)); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: #000; margin: 0 auto 16px; box-shadow: 0 0 28px rgba(212,160,23,0.3); transition: transform 0.3s; }
+  .step-num { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--pink)); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: #fff; margin: 0 auto 16px; box-shadow: 0 0 28px rgba(171,26,123,0.3); transition: transform 0.3s; }
   .step:hover .step-num { transform: scale(1.1); }
   .step p { font-size: 12px; font-weight: 600; color: #ccc; line-height: 1.6; text-transform: uppercase; letter-spacing: 0.08em; }
 
@@ -177,7 +183,7 @@
   .testimonio-card::before { content: '"'; font-family: 'Bebas Neue', sans-serif; font-size: 80px; color: rgba(212,160,23,0.1); position: absolute; top: -10px; left: 20px; line-height: 1; }
   .testimonio-text { font-size: 13px; line-height: 1.8; color: #bbb; margin-bottom: 20px; position: relative; z-index: 1; }
   .testimonio-author { display: flex; align-items: center; gap: 12px; }
-  .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-dark), var(--gold)); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #000; flex-shrink: 0; }
+  .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--pink)); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #fff; flex-shrink: 0; }
   .author-name { font-size: 13px; font-weight: 700; color: var(--gold-light); }
   .author-detail { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
   .stars { color: var(--gold); font-size: 13px; letter-spacing: 2px; margin-bottom: 8px; }
@@ -202,8 +208,8 @@
   .form-input:focus { border-color: var(--gold); background: rgba(212,160,23,0.04); }
   .form-input::placeholder { color: #444; }
   select.form-input option { background: #111; color: #fff; }
-  .form-submit { margin-top: 32px; width: 100%; padding: 16px; background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: #000; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; border: none; border-radius: 2px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 24px rgba(212,160,23,0.2); }
-  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(212,160,23,0.35); }
+  .form-submit { margin-top: 32px; width: 100%; padding: 16px; background: linear-gradient(135deg, var(--gold), var(--pink)); color: #fff; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; border: none; border-radius: 2px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 24px rgba(171,26,123,0.25); }
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(171,26,123,0.4); }
   .form-note { margin-top: 16px; font-size: 11px; color: #555; text-align: center; }
   .form-success { display: none; text-align: center; padding: 48px; background: rgba(212,160,23,0.05); border: 1px solid rgba(212,160,23,0.2); border-radius: 4px; margin-top: 32px; }
   .form-success.show { display: block; }
@@ -215,7 +221,7 @@
   .contacto { padding: 80px 24px; background: linear-gradient(180deg, #100800 0%, #0a0a0a 100%); text-align: center; }
   .contact-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 56px; }
   .contact-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-  .contact-icon { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-dark), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #000; margin-bottom: 8px; box-shadow: 0 4px 20px rgba(212,160,23,0.25); }
+  .contact-icon { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--pink)); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #fff; margin-bottom: 8px; box-shadow: 0 4px 20px rgba(171,26,123,0.3); }
   .contact-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; }
   .contact-value { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.08em; color: var(--gold-light); }
   .social-bar { margin-top: 56px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
