@@ -32,11 +32,7 @@
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(212,160,23,0.1);
   }
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.15em;
-    background: linear-gradient(135deg, var(--gold-light), var(--gold) 50%, var(--pink));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  }
+  .nav-logo img { height: 44px; width: auto; object-fit: contain; display: block; }
   .nav-links { display: flex; gap: 32px; list-style: none; }
   .nav-links a { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
   .nav-links a:hover { color: var(--gold-light); }
@@ -144,7 +140,9 @@
     border: 2px solid rgba(212,160,23,0.25); border-radius: 4px;
     display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px;
     color: var(--gold-dark); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    overflow: hidden;
   }
+  .trainer-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; border-radius: 2px; }
   .trainer-photo svg { width: 56px; height: 56px; opacity: 0.3; fill: var(--gold); }
   .trainer-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(30px,4vw,48px); letter-spacing: 0.08em; color: var(--gold-light); line-height: 1; margin-bottom: 6px; }
   .trainer-title { font-size: 10px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 20px; }
@@ -233,7 +231,7 @@
   footer p { font-size: 11px; color: #444; letter-spacing: 0.12em; }
   footer span { color: var(--gold-dark); }
 
-  /* WHATSAPP FLOAT */
+  /* WHATSAPP */
   .wa-float { position: fixed; bottom: 32px; right: 32px; z-index: 200; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
   .wa-btn { width: 60px; height: 60px; border-radius: 50%; background: #25d366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.4); cursor: pointer; text-decoration: none; animation: waPulse 3s ease-in-out infinite; transition: transform 0.2s; }
   .wa-btn:hover { transform: scale(1.1); }
@@ -242,7 +240,67 @@
   .wa-tooltip { background: #000; border: 1px solid rgba(37,211,102,0.3); color: #25d366; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; padding: 8px 14px; border-radius: 4px; white-space: nowrap; opacity: 0; transform: translateX(10px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; }
   .wa-float:hover .wa-tooltip { opacity: 1; transform: translateX(0); }
 
-  /* ANIMATIONS */
+  /* EVIDENCIAS */
+  .evidencias { padding: 100px 24px; background: var(--bg-section); }
+  .carousel-wrap { position: relative; max-width: 900px; margin: 0 auto; }
+  .carousel-track-outer { overflow: hidden; border-radius: 4px; }
+  .carousel-track { display: flex; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
+  .carousel-slide {
+    min-width: 100%; position: relative;
+    aspect-ratio: 16/9; background: #1a1200;
+    border: 1px solid rgba(212,160,23,0.2); border-radius: 4px; overflow: hidden;
+  }
+  .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .carousel-slide .slide-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 20px 24px 16px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+    font-size: 13px; font-weight: 600; letter-spacing: 0.1em; color: #fff;
+  }
+  /* placeholder cuando no hay imagen */
+  .carousel-slide .slide-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    color: rgba(212,160,23,0.3); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
+  }
+  .carousel-slide .slide-placeholder svg { width: 56px; height: 56px; fill: currentColor; opacity: 0.4; }
+  .carousel-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(0,0,0,0.7); border: 1px solid rgba(212,160,23,0.4);
+    color: var(--gold-light); font-size: 20px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.3s, border-color 0.3s; z-index: 2;
+  }
+  .carousel-btn:hover { background: rgba(212,160,23,0.15); border-color: var(--gold); }
+  .carousel-btn.prev { left: -24px; }
+  .carousel-btn.next { right: -24px; }
+  .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
+  .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(212,160,23,0.25); cursor: pointer; transition: background 0.3s, transform 0.3s; }
+  .carousel-dot.active { background: var(--gold); transform: scale(1.3); }
+  @media (max-width: 768px) { .carousel-btn.prev { left: 4px; } .carousel-btn.next { right: 4px; } }
+
+  /* INSTAGRAM */
+  .instagram-section { padding: 80px 24px; background: linear-gradient(180deg, #0a0a0a 0%, #110820 100%); text-align: center; }
+  .insta-frame {
+    max-width: 420px; margin: 0 auto;
+    border: 1px solid rgba(171,26,123,0.3); border-radius: 12px; overflow: hidden;
+    box-shadow: 0 8px 40px rgba(171,26,123,0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .insta-frame:hover { transform: translateY(-4px); box-shadow: 0 16px 56px rgba(171,26,123,0.25); }
+  .insta-frame img { width: 100%; display: block; }
+  .insta-frame .insta-placeholder {
+    aspect-ratio: 4/5; background: linear-gradient(135deg, #1a0820, #2a0a38);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+    color: rgba(171,26,123,0.5); font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase;
+  }
+  .insta-frame .insta-placeholder svg { width: 64px; height: 64px; fill: currentColor; opacity: 0.5; }
+  .insta-handle { margin-top: 20px; font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.12em; background: linear-gradient(135deg, var(--gold), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .insta-follow { display: inline-flex; align-items: center; gap: 10px; margin-top: 20px; padding: 13px 32px; background: linear-gradient(135deg, var(--gold), var(--pink)); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; border-radius: 2px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(171,26,123,0.3); }
+  .insta-follow:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(171,26,123,0.45); }
+
+  /* ANIMA */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -265,7 +323,8 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">GENFIT</div>
+  
+  <div class="nav-logo"><img src="img/logoSinFondo.png" alt="GENFIT Logo"></div>
   <ul class="nav-links">
     <li><a href="#nosotras">Nosotras</a></li>
     <li><a href="#servicios">Servicios</a></li>
@@ -275,7 +334,7 @@
   </ul>
 </nav>
 
-<!-- HERO -->
+<!--  -->
 <section class="hero">
   <div class="hero-orb orb1"></div>
   <div class="hero-orb orb2"></div>
@@ -295,17 +354,17 @@
   </div>
 </section>
 
-<!-- STATS -->
+<!--  -->
 <section class="stats">
   <div class="stats-grid">
-    <div class="stat-item reveal"><div class="stat-num" data-target="150" data-suffix="+">0</div><div class="stat-label">Clientes Atendidos</div></div>
-    <div class="stat-item reveal"><div class="stat-num" data-target="5" data-suffix="">0</div><div class="stat-label">Años de Experiencia</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-target="40" data-suffix="+">0</div><div class="stat-label">Clientes Atendidos</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-target="3" data-suffix="">0</div><div class="stat-label">Años de Experiencia</div></div>
     <div class="stat-item reveal"><div class="stat-num" data-target="4" data-suffix="">0</div><div class="stat-label">Modalidades de Servicio</div></div>
     <div class="stat-item reveal"><div class="stat-num" data-target="100" data-suffix="%">0</div><div class="stat-label">Compromiso</div></div>
   </div>
 </section>
 
-<!-- FILOSOFÍA -->
+<!-- FILO -->
 <section class="filosofia" id="nosotras">
   <div class="section-label reveal">Nuestra Filosofía</div>
   <p class="section-sub reveal">Lo que nos diferencia</p>
@@ -317,7 +376,7 @@
   </div>
 </section>
 
-<!-- ENTRENADORAS -->
+<!-- ENTRE -->
 <section class="entrenadoras">
   <div class="entrenadoras-inner">
     <div style="text-align:center;margin-bottom:64px">
@@ -325,9 +384,13 @@
       <p class="section-sub reveal">Experiencia · Ciencia · Cercanía humana</p>
     </div>
     <div class="entrenadora-card reveal">
+      
       <div class="trainer-photo">
-        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-        <span>Maurene Pabón</span>
+        <img src="img/mao.jpeg" alt="Maurene Pabón" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span style="display:none;flex-direction:column;align-items:center;gap:12px;width:100%;height:100%;justify-content:center">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+          Maurene Pabón
+        </span>
       </div>
       <div class="trainer-info">
         <div class="trainer-name">Maurene Pabón</div>
@@ -339,9 +402,13 @@
       </div>
     </div>
     <div class="entrenadora-card reverse reveal">
+     
       <div class="trainer-photo">
-        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-        <span>Michell Marroquín</span>
+        <img src="img/danna.png" alt="Michell Marroquín" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span style="display:none;flex-direction:column;align-items:center;gap:12px;width:100%;height:100%;justify-content:center">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+          Michell Marroquín
+        </span>
       </div>
       <div class="trainer-info">
         <div class="trainer-name">Michell Marroquín</div>
@@ -355,7 +422,7 @@
   </div>
 </section>
 
-<!-- SERVICIOS -->
+<!-- SERVI -->
 <section class="servicios" id="servicios">
   <div style="text-align:center;margin-bottom:64px">
     <div class="section-label reveal">Nuestros Servicios</div>
@@ -413,7 +480,7 @@
   </div>
 </section>
 
-<!-- PROCESO -->
+<!-- PRO -->
 <section class="proceso">
   <div class="section-label reveal">¿Cómo Trabajamos?</div>
   <p class="section-sub reveal">Tu proceso, paso a paso</p>
@@ -425,7 +492,7 @@
   </div>
 </section>
 
-<!-- TESTIMONIOS -->
+<!-- TEST -->
 <section class="testimonios" id="testimonios">
   <div style="text-align:center;margin-bottom:56px">
     <div class="section-label reveal">Lo Que Dicen Nuestras Clientas</div>
@@ -466,7 +533,7 @@
   </div>
 </section>
 
-<!-- FORMULARIO -->
+<!-- FORM -->
 <section class="form-section" id="registro">
   <div style="text-align:center;margin-bottom:56px">
     <div class="section-label reveal">Empieza Tu Proceso</div>
@@ -523,7 +590,63 @@
       <div class="success-title">¡Solicitud Enviada!</div>
       <p class="success-text">Gracias por confiar en GENFIT. Recibimos tu información y nos pondremos en contacto muy pronto. ¡Bienvenida al proceso!</p>
     </div>
+    <div id="formError" style="display:none;margin-top:20px;padding:16px;border:1px solid rgba(171,26,123,0.4);border-radius:4px;background:rgba(171,26,123,0.06);color:#e88;font-size:13px;text-align:center;">
+      ⚠️ Hubo un error al enviar. Verifica que el endpoint de Formspree esté configurado correctamente, o escríbenos directo por WhatsApp.
+    </div>
   </div>
+</section>
+
+<!-- EVIDENCIAS -->
+<section class="evidencias" id="evidencias">
+  <div style="text-align:center;margin-bottom:56px">
+    <div class="section-label reveal">Evidencias y Resultados</div>
+    <p class="section-sub reveal">Transformaciones reales de nuestras clientas</p>
+  </div>
+  <div class="carousel-wrap reveal">
+    <div class="carousel-track-outer">
+      <div class="carousel-track" id="carouselTrack">
+
+        
+        <div class="carousel-slide">
+          <img src="img/evidenciaHombre.png" alt="Resultado 1" onerror="this.parentElement.innerHTML='<div class=\'slide-placeholder\'><svg viewBox=\'0 0 24 24\'><path d=\'M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z\'/></svg><span>evidencia1.jpg</span></div>'">
+          <div class="slide-label">Resultado · Transformación</div>
+        </div>
+
+       
+        <div class="carousel-slide">
+          <img src="img/evidenciaAdultoMayor.jpeg" alt="Resultado 2" onerror="this.parentElement.innerHTML='<div class=\'slide-placeholder\'><svg viewBox=\'0 0 24 24\'><path d=\'M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z\'/></svg><span>evidencia2.jpg</span></div>'">
+          <div class="slide-label">Resultado · Transformación</div>
+        </div>
+
+        
+        <div class="carousel-slide">
+          <img src="img/evidenciaCompe.png" alt="Resultado 3" onerror="this.parentElement.innerHTML='<div class=\'slide-placeholder\'><svg viewBox=\'0 0 24 24\'><path d=\'M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z\'/></svg><span>evidencia3.jpg</span></div>'">
+          <div class="slide-label">Resultado · Transformación</div>
+        </div>
+
+      </div>
+    </div>
+    <button class="carousel-btn prev" id="carouselPrev">&#8592;</button>
+    <button class="carousel-btn next" id="carouselNext">&#8594;</button>
+    <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="instagram-section">
+  <div class="section-label reveal">Síguenos en Instagram</div>
+  <p class="section-sub reveal">Contenido diario de entrenamientos, tips y resultados</p>
+  <div class="insta-frame reveal">
+    
+    <img src="img/insta.jpeg" alt="GENFIT Instagram" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="insta-placeholder" style="display:none">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      <span>instagram.jpg</span>
+    </div>
+  </div>
+  <div class="insta-handle reveal">@genfit</div>
+
+  <a href="https://www.instagram.com/genfit2g_?igsh=NDNkYnBvZ3d2eG01" target="_blank" class="insta-follow reveal">📷 Seguir en Instagram</a>
 </section>
 
 <!-- CONTACTO -->
@@ -543,7 +666,7 @@
     </div>
   </div>
   <div class="social-bar reveal">
-    <a href="https://instagram.com/genfit" target="_blank" class="social-btn">📷 Instagram</a>
+    <a href="https://www.instagram.com/genfit2g_?igsh=NDNkYnBvZ3d2eG01" target="_blank" class="social-btn">📷 Instagram</a>
     <a href="https://wa.me/573112775234" target="_blank" class="social-btn">💬 WhatsApp Maurene</a>
     <a href="https://wa.me/573124751574" target="_blank" class="social-btn">💬 WhatsApp Michell</a>
   </div>
@@ -551,10 +674,10 @@
 
 <!-- FOOTER -->
 <footer>
-  <p><span>GENFIT</span> · Entrenadoras certificadas · Bogotá, Colombia · © 2025 Todos los derechos reservados</p>
+  <p><span>GENFIT</span> · Entrenadoras certificadas · Bogotá, Colombia · © 2026 Todos los derechos reservados</p>
 </footer>
 
-<!-- WHATSAPP FLOTANTE -->
+<!-- WHATSAPP-->
 <div class="wa-float">
   <span class="wa-tooltip">¡Escríbenos ya!</span>
   <a class="wa-btn" href="https://wa.me/573112775234" target="_blank" aria-label="WhatsApp">
@@ -594,29 +717,88 @@
   }, { threshold: 0.5 });
   document.querySelectorAll('.stat-num[data-target]').forEach(el => co.observe(el));
 
-  // Form submit → mailto
-  document.getElementById('genfitForm').addEventListener('submit', function(e) {
+  // Form submit → Formspree
+  document.getElementById('genfitForm').addEventListener('submit', async function(e) {
     e.preventDefault();
+    const btn = this.querySelector('.form-submit');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
     const v = (id) => document.getElementById(id).value;
-    const subject = encodeURIComponent('Nueva Solicitud GENFIT - ' + v('nombre') + ' ' + v('apellido'));
-    const body = encodeURIComponent(
-      'Nueva solicitud recibida desde el sitio web de GENFIT\n\n' +
-      '═══════════════════════════════\n' +
-      'DATOS DEL CLIENTE\n' +
-      '═══════════════════════════════\n' +
-      'Nombre:     ' + v('nombre') + ' ' + v('apellido') + '\n' +
-      'Edad:       ' + v('edad') + ' años\n' +
-      'Correo:     ' + v('correo') + '\n' +
-      'Objetivo:   ' + (v('objetivo') || 'No especificado') + '\n' +
-      'Modalidad:  ' + (v('modalidad') || 'No especificada') + '\n' +
-      '═══════════════════════════════\n\n' +
-      'Responde a este correo o contáctalo directamente.'
-    );
-    // 👇 CAMBIA ESTE CORREO POR EL TUYO
-    window.location.href = 'mailto:tucorreo@ejemplo.com?subject=' + subject + '&body=' + body;
-    document.getElementById('genfitForm').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
+    const data = {
+      nombre:    v('nombre'),
+      apellido:  v('apellido'),
+      edad:      v('edad'),
+      correo:    v('correo'),
+      objetivo:  v('objetivo') || 'No especificado',
+      modalidad: v('modalidad') || 'No especificada',
+      _subject:  'Nueva Solicitud GENFIT - ' + v('nombre') + ' ' + v('apellido'),
+      _replyto:  v('correo')
+    };
+
+    // url de formspree
+    const FORMSPREE_URL = 'https://formspree.io/f/mlgpqpew';
+
+    try {
+      const res = await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (res.ok) {
+        document.getElementById('genfitForm').style.display = 'none';
+        document.getElementById('formSuccess').classList.add('show');
+      } else {
+        const json = await res.json();
+        throw new Error(json?.errors?.[0]?.message || 'Error al enviar');
+      }
+    } catch (err) {
+      btn.textContent = '✦ Enviar Solicitud';
+      btn.disabled = false;
+      document.getElementById('formError').style.display = 'block';
+      console.error(err);
+    }
   });
+
+  // Carrusel de evidencias
+  (function() {
+    const track = document.getElementById('carouselTrack');
+    const dotsContainer = document.getElementById('carouselDots');
+    if (!track) return;
+    const slides = track.querySelectorAll('.carousel-slide');
+    const total = slides.length;
+    if (!total) return;
+    let current = 0;
+
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(d);
+    });
+
+    function goTo(idx) {
+      current = (idx + total) % total;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    document.getElementById('carouselPrev').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('carouselNext').addEventListener('click', () => goTo(current + 1));
+
+    let timer = setInterval(() => goTo(current + 1), 4500);
+    const outer = track.closest('.carousel-track-outer');
+    outer.addEventListener('mouseenter', () => clearInterval(timer));
+    outer.addEventListener('mouseleave', () => { timer = setInterval(() => goTo(current + 1), 4500); });
+
+    let startX = 0;
+    track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+    });
+  })();
 </script>
 </body>
 </html>
