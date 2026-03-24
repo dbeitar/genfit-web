@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GENFIT – Entrenadoras de Confianza</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #d4a017;
+    --gold-light: #f0c040;
+    --gold-dark: #a07810;
+    --bg-dark: #0a0a0a;
+    --bg-card: #111111;
+    --bg-section: #141414;
+    --text: #f5f5f5;
+    --text-muted: #aaa;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-dark); color: var(--text); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 40px;
+    background: rgba(10,10,10,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212,160,23,0.1);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.15em;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-cta { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: #000 !important; padding: 8px 20px; border-radius: 2px; }
+  @media (max-width: 768px) { .nav-links { display: none; } nav { padding: 14px 20px; } }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 120px 24px 80px; position: relative; overflow: hidden;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, #2a1a00 0%, #0a0a0a 70%);
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg,transparent,transparent 80px,rgba(212,160,23,0.03) 80px,rgba(212,160,23,0.03) 81px),
+                repeating-linear-gradient(90deg,transparent,transparent 80px,rgba(212,160,23,0.03) 80px,rgba(212,160,23,0.03) 81px);
+    pointer-events: none;
+  }
+  .hero-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; animation: orbFloat 8s ease-in-out infinite; }
+  .orb1 { width: 400px; height: 400px; background: rgba(212,160,23,0.08); top: -100px; left: -100px; }
+  .orb2 { width: 300px; height: 300px; background: rgba(212,160,23,0.06); bottom: 0; right: -80px; animation-delay: 3s; }
+  @keyframes orbFloat { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-30px) scale(1.05); } }
+
+  .hero-eyebrow { font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; margin-bottom: 20px; animation: fadeUp 0.8s ease both; position: relative; z-index: 1; }
+  .hero-logo {
+    font-family: 'Bebas Neue', sans-serif; font-size: clamp(90px, 20vw, 200px); letter-spacing: 0.12em;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    line-height: 0.9; animation: fadeUp 0.8s 0.1s ease both; position: relative; z-index: 1;
+  }
+  .hero-tagline { font-size: clamp(12px, 2vw, 16px); font-weight: 300; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); margin-top: 16px; animation: fadeUp 0.8s 0.2s ease both; position: relative; z-index: 1; }
+  .hero-divider { width: 80px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 36px auto; animation: fadeUp 0.8s 0.3s ease both; position: relative; z-index: 1; }
+  .hero-desc { max-width: 580px; font-size: clamp(13px,1.8vw,15px); font-weight: 300; line-height: 1.9; color: #ccc; animation: fadeUp 0.8s 0.4s ease both; position: relative; z-index: 1; margin-bottom: 40px; }
+  .hero-desc strong { color: var(--gold-light); font-weight: 600; }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.8s 0.5s ease both; position: relative; z-index: 1; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: #000;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    border-radius: 2px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(212,160,23,0.25);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(212,160,23,0.4); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px;
+    border: 1px solid var(--gold); color: var(--gold);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    border-radius: 2px; text-decoration: none; transition: background 0.3s, color 0.3s;
+  }
+  .btn-outline:hover { background: var(--gold); color: #000; }
+
+  /* STATS */
+  .stats {
+    padding: 60px 24px;
+    background: linear-gradient(90deg, #0f0a00, #1a1000, #0f0a00);
+    border-top: 1px solid rgba(212,160,23,0.12); border-bottom: 1px solid rgba(212,160,23,0.12);
+  }
+  .stats-grid { display: flex; flex-wrap: wrap; justify-content: center; max-width: 900px; margin: 0 auto; }
+  .stat-item { flex: 1; min-width: 160px; text-align: center; padding: 20px 24px; border-right: 1px solid rgba(212,160,23,0.12); }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 56px; letter-spacing: 0.05em;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1;
+  }
+  .stat-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-top: 6px; }
+
+  /* SECTION HELPERS */
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 7vw, 64px); letter-spacing: 0.1em;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 16px;
+  }
+  .section-sub { font-size: 13px; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 56px; }
+
+  /* FILOSOFÍA */
+  .filosofia { padding: 100px 24px; text-align: center; background: var(--bg-dark); }
+  .filosofia-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px; max-width: 920px; margin: 0 auto; }
+  .filo-card { border: 1px solid rgba(212,160,23,0.18); border-radius: 4px; padding: 32px 22px; background: rgba(212,160,23,0.03); transition: border-color 0.3s, background 0.3s, transform 0.3s; position: relative; overflow: hidden; }
+  .filo-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0; transition: opacity 0.3s; }
+  .filo-card:hover { border-color: rgba(212,160,23,0.5); background: rgba(212,160,23,0.07); transform: translateY(-5px); }
+  .filo-card:hover::before { opacity: 1; }
+  .filo-icon { font-size: 32px; margin-bottom: 16px; }
+  .filo-card p { font-size: 14px; font-weight: 500; color: #ddd; line-height: 1.6; }
+
+  /* ENTRENADORAS */
+  .entrenadoras { padding: 100px 24px; background: var(--bg-section); }
+  .entrenadoras-inner { max-width: 1100px; margin: 0 auto; }
+  .entrenadora-card {
+    display: grid; grid-template-columns: 280px 1fr; gap: 56px; align-items: center;
+    margin-bottom: 60px; padding: 48px; background: var(--bg-card);
+    border: 1px solid rgba(212,160,23,0.15); border-radius: 4px; position: relative; overflow: hidden; transition: border-color 0.3s;
+  }
+  .entrenadora-card:hover { border-color: rgba(212,160,23,0.4); }
+  .entrenadora-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark)); }
+  .entrenadora-card.reverse { grid-template-columns: 1fr 280px; }
+  .entrenadora-card.reverse .trainer-photo { order: 2; }
+  .entrenadora-card.reverse .trainer-info { order: 1; }
+  .trainer-photo {
+    aspect-ratio: 3/4; background: linear-gradient(135deg, #1a1200 0%, #2a1a00 100%);
+    border: 2px solid rgba(212,160,23,0.25); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px;
+    color: var(--gold-dark); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+  }
+  .trainer-photo svg { width: 56px; height: 56px; opacity: 0.3; fill: var(--gold); }
+  .trainer-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(30px,4vw,48px); letter-spacing: 0.08em; color: var(--gold-light); line-height: 1; margin-bottom: 6px; }
+  .trainer-title { font-size: 10px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 20px; }
+  .trainer-bio { font-size: 14px; line-height: 1.9; color: #bbb; margin-bottom: 20px; }
+  .trainer-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 5px 12px; border: 1px solid rgba(212,160,23,0.3); color: var(--gold); border-radius: 2px; }
+
+  /* SERVICIOS */
+  .servicios { padding: 100px 24px; background: linear-gradient(180deg, #0f0a00 0%, #0a0a0a 100%); }
+  .servicios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+  .servicio-card { background: var(--bg-card); border: 1px solid rgba(212,160,23,0.12); border-radius: 4px; padding: 36px 28px; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: column; }
+  .servicio-card:hover { transform: translateY(-6px); border-color: rgba(212,160,23,0.4); }
+  .servicio-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold-dark), var(--gold-light)); }
+  .servicio-icon { font-size: 32px; margin-bottom: 16px; }
+  .servicio-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.07em; color: var(--gold-light); margin-bottom: 12px; line-height: 1.2; }
+  .servicio-price { display: inline-block; font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--gold); letter-spacing: 0.05em; margin-bottom: 20px; line-height: 1; }
+  .servicio-list { list-style: none; font-size: 13px; color: #999; flex: 1; }
+  .servicio-list li { padding: 9px 0 9px 18px; border-bottom: 1px solid rgba(255,255,255,0.05); position: relative; line-height: 1.5; }
+  .servicio-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); }
+
+  /* PROCESO */
+  .proceso { padding: 100px 24px; background: var(--bg-section); text-align: center; }
+  .proceso-steps { display: flex; flex-wrap: wrap; justify-content: center; max-width: 900px; margin: 0 auto; position: relative; }
+  .proceso-steps::before { content: ''; position: absolute; top: 36px; left: 12%; right: 12%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .step { flex: 1; min-width: 160px; padding: 16px; position: relative; z-index: 1; }
+  .step-num { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-dark), var(--gold)); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: #000; margin: 0 auto 16px; box-shadow: 0 0 28px rgba(212,160,23,0.3); transition: transform 0.3s; }
+  .step:hover .step-num { transform: scale(1.1); }
+  .step p { font-size: 12px; font-weight: 600; color: #ccc; line-height: 1.6; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* TESTIMONIOS */
+  .testimonios { padding: 100px 24px; background: var(--bg-dark); overflow: hidden; }
+  .testimonios-track { display: flex; gap: 24px; animation: scrollTrack 32s linear infinite; width: max-content; }
+  .testimonios-track:hover { animation-play-state: paused; }
+  @keyframes scrollTrack { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .testimonio-card { width: 320px; flex-shrink: 0; background: var(--bg-card); border: 1px solid rgba(212,160,23,0.15); border-radius: 4px; padding: 28px; position: relative; }
+  .testimonio-card::before { content: '"'; font-family: 'Bebas Neue', sans-serif; font-size: 80px; color: rgba(212,160,23,0.1); position: absolute; top: -10px; left: 20px; line-height: 1; }
+  .testimonio-text { font-size: 13px; line-height: 1.8; color: #bbb; margin-bottom: 20px; position: relative; z-index: 1; }
+  .testimonio-author { display: flex; align-items: center; gap: 12px; }
+  .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-dark), var(--gold)); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #000; flex-shrink: 0; }
+  .author-name { font-size: 13px; font-weight: 700; color: var(--gold-light); }
+  .author-detail { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .stars { color: var(--gold); font-size: 13px; letter-spacing: 2px; margin-bottom: 8px; }
+
+  /* PARA QUIÉN */
+  .publico { padding: 100px 24px; background: linear-gradient(180deg, #0a0a0a 0%, #100800 100%); }
+  .publico-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; max-width: 1000px; margin: 0 auto; }
+  .publico-item { display: flex; align-items: flex-start; gap: 12px; padding: 18px; background: rgba(212,160,23,0.03); border: 1px solid rgba(212,160,23,0.1); border-radius: 4px; font-size: 13px; color: #bbb; line-height: 1.5; transition: background 0.3s, border-color 0.3s, transform 0.3s; }
+  .publico-item:hover { background: rgba(212,160,23,0.08); border-color: rgba(212,160,23,0.3); transform: translateX(4px); }
+  .publico-item .check { color: var(--gold); font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* FORM */
+  .form-section { padding: 100px 24px; background: var(--bg-section); position: relative; overflow: hidden; }
+  .form-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 50% at 50% 100%, rgba(212,160,23,0.04) 0%, transparent 70%); pointer-events: none; }
+  .form-wrapper { max-width: 640px; margin: 0 auto; }
+  .form-desc { font-size: 14px; color: var(--text-muted); line-height: 1.8; margin-bottom: 48px; text-align: center; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-label { font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-dark); }
+  .form-input { background: rgba(255,255,255,0.03); border: 1px solid rgba(212,160,23,0.2); border-radius: 2px; padding: 14px 16px; color: var(--text); font-family: 'Montserrat', sans-serif; font-size: 14px; outline: none; transition: border-color 0.3s, background 0.3s; width: 100%; }
+  .form-input:focus { border-color: var(--gold); background: rgba(212,160,23,0.04); }
+  .form-input::placeholder { color: #444; }
+  select.form-input option { background: #111; color: #fff; }
+  .form-submit { margin-top: 32px; width: 100%; padding: 16px; background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: #000; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; border: none; border-radius: 2px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 24px rgba(212,160,23,0.2); }
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(212,160,23,0.35); }
+  .form-note { margin-top: 16px; font-size: 11px; color: #555; text-align: center; }
+  .form-success { display: none; text-align: center; padding: 48px; background: rgba(212,160,23,0.05); border: 1px solid rgba(212,160,23,0.2); border-radius: 4px; margin-top: 32px; }
+  .form-success.show { display: block; }
+  .success-icon { font-size: 48px; margin-bottom: 16px; }
+  .success-title { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: 0.08em; color: var(--gold-light); margin-bottom: 12px; }
+  .success-text { font-size: 14px; color: #aaa; line-height: 1.7; }
+
+  /* CONTACTO */
+  .contacto { padding: 80px 24px; background: linear-gradient(180deg, #100800 0%, #0a0a0a 100%); text-align: center; }
+  .contact-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 56px; }
+  .contact-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .contact-icon { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-dark), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 22px; color: #000; margin-bottom: 8px; box-shadow: 0 4px 20px rgba(212,160,23,0.25); }
+  .contact-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-dark); font-weight: 700; }
+  .contact-value { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 0.08em; color: var(--gold-light); }
+  .social-bar { margin-top: 56px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .social-btn { display: inline-flex; align-items: center; gap: 10px; padding: 13px 28px; border: 1px solid var(--gold); color: var(--gold); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; text-decoration: none; border-radius: 2px; transition: background 0.3s, color 0.3s; }
+  .social-btn:hover { background: var(--gold); color: #000; }
+
+  /* FOOTER */
+  footer { padding: 28px 24px; text-align: center; border-top: 1px solid rgba(212,160,23,0.12); background: #050505; }
+  footer p { font-size: 11px; color: #444; letter-spacing: 0.12em; }
+  footer span { color: var(--gold-dark); }
+
+  /* WHATSAPP FLOAT */
+  .wa-float { position: fixed; bottom: 32px; right: 32px; z-index: 200; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+  .wa-btn { width: 60px; height: 60px; border-radius: 50%; background: #25d366; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.4); cursor: pointer; text-decoration: none; animation: waPulse 3s ease-in-out infinite; transition: transform 0.2s; }
+  .wa-btn:hover { transform: scale(1.1); }
+  .wa-btn svg { width: 30px; height: 30px; fill: #fff; }
+  @keyframes waPulse { 0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); } 50% { box-shadow: 0 4px 36px rgba(37,211,102,0.7); } }
+  .wa-tooltip { background: #000; border: 1px solid rgba(37,211,102,0.3); color: #25d366; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; padding: 8px 14px; border-radius: 4px; white-space: nowrap; opacity: 0; transform: translateX(10px); transition: opacity 0.3s, transform 0.3s; pointer-events: none; }
+  .wa-float:hover .wa-tooltip { opacity: 1; transform: translateX(0); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .entrenadora-card { grid-template-columns: 1fr !important; padding: 28px; gap: 28px; }
+    .entrenadora-card .trainer-photo { order: 0 !important; aspect-ratio: 16/9; }
+    .entrenadora-card .trainer-info { order: 1 !important; }
+    .proceso-steps::before { display: none; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-group.full { grid-column: auto; }
+    .stat-item { border-right: none; border-bottom: 1px solid rgba(212,160,23,0.12); }
+    .stat-item:last-child { border-bottom: none; }
+    .wa-float { bottom: 20px; right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">GENFIT</div>
+  <ul class="nav-links">
+    <li><a href="#nosotras">Nosotras</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#testimonios">Testimonios</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#registro" class="nav-cta">Empezar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <p class="hero-eyebrow">Entrenamiento con criterio · Resultados reales</p>
+  <div class="hero-logo">GENFIT</div>
+  <p class="hero-tagline">Tus futuras entrenadoras de confianza certificadas</p>
+  <div class="hero-divider"></div>
+  <p class="hero-desc">
+    Unidas por una misma pasión: ayudar a las personas a entrenar con
+    <strong>criterio, constancia y resultados reales</strong> desde la paciencia y el amor al fitness.
+    Entrenamiento adaptado a cada etapa de la vida, con enfoque en
+    <strong>salud, estética y rendimiento</strong>.
+  </p>
+  <div class="hero-btns">
+    <a href="#registro" class="btn-primary">✦ Quiero Empezar</a>
+    <a href="#servicios" class="btn-outline">Ver Servicios</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stats-grid">
+    <div class="stat-item reveal"><div class="stat-num" data-target="150" data-suffix="+">0</div><div class="stat-label">Clientes Atendidos</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-target="5" data-suffix="">0</div><div class="stat-label">Años de Experiencia</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-target="4" data-suffix="">0</div><div class="stat-label">Modalidades de Servicio</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-target="100" data-suffix="%">0</div><div class="stat-label">Compromiso</div></div>
+  </div>
+</section>
+
+<!-- FILOSOFÍA -->
+<section class="filosofia" id="nosotras">
+  <div class="section-label reveal">Nuestra Filosofía</div>
+  <p class="section-sub reveal">Lo que nos diferencia</p>
+  <div class="filosofia-grid">
+    <div class="filo-card reveal"><div class="filo-icon">🎯</div><p>Entrenar con <strong style="color:var(--gold-light)">intención</strong>, no por castigo</p></div>
+    <div class="filo-card reveal"><div class="filo-icon">📈</div><p>Progresar de forma <strong style="color:var(--gold-light)">segura y sostenible</strong></p></div>
+    <div class="filo-card reveal"><div class="filo-icon">🧠</div><p>Educación + <strong style="color:var(--gold-light)">acompañamiento real</strong></p></div>
+    <div class="filo-card reveal"><div class="filo-icon">💛</div><p>Cada cuerpo tiene <strong style="color:var(--gold-light)">su proceso y su ritmo</strong></p></div>
+  </div>
+</section>
+
+<!-- ENTRENADORAS -->
+<section class="entrenadoras">
+  <div class="entrenadoras-inner">
+    <div style="text-align:center;margin-bottom:64px">
+      <div class="section-label reveal">Conoce a las Entrenadoras</div>
+      <p class="section-sub reveal">Experiencia · Ciencia · Cercanía humana</p>
+    </div>
+    <div class="entrenadora-card reveal">
+      <div class="trainer-photo">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+        <span>Maurene Pabón</span>
+      </div>
+      <div class="trainer-info">
+        <div class="trainer-name">Maurene Pabón</div>
+        <div class="trainer-title">Entrenadora Personal · Atleta de Culturismo</div>
+        <p class="trainer-bio">Especializada en <strong style="color:var(--gold-light)">fuerza, hipertrofia y recomposición corporal</strong>, con amplia experiencia en adulto mayor, rehabilitación, readaptación al ejercicio y preparación de atletas para culturismo y fitness.</p>
+        <div class="trainer-tags">
+          <span class="tag">Fuerza</span><span class="tag">Hipertrofia</span><span class="tag">Adulto Mayor</span><span class="tag">Rehabilitación</span><span class="tag">Culturismo</span>
+        </div>
+      </div>
+    </div>
+    <div class="entrenadora-card reverse reveal">
+      <div class="trainer-photo">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+        <span>Michell Marroquín</span>
+      </div>
+      <div class="trainer-info">
+        <div class="trainer-name">Michell Marroquín</div>
+        <div class="trainer-title">Coach Fitness · Atleta Culturista Natural · Univ. INCCA</div>
+        <p class="trainer-bio">Enfoque en entrenamiento <strong style="color:var(--gold-light)">consciente, seguro y efectivo</strong>, integrando ciencia del movimiento, la fuerza y la salud. Formada en kinesiología y entrenamiento estructural para competencias de fitness, pérdida de grasa y estética.</p>
+        <div class="trainer-tags">
+          <span class="tag">Kinesiología</span><span class="tag">Pérdida de Grasa</span><span class="tag">Estética</span><span class="tag">Competencias</span><span class="tag">Fuerza</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="servicios" id="servicios">
+  <div style="text-align:center;margin-bottom:64px">
+    <div class="section-label reveal">Nuestros Servicios</div>
+    <p class="section-sub reveal">Adaptados a cada etapa de tu vida</p>
+  </div>
+  <div class="servicios-grid">
+    <div class="servicio-card reveal">
+      <div class="servicio-icon">💻</div>
+      <div class="servicio-title">Asesoría Online Personalizada</div>
+      <div class="servicio-price">$350.000</div>
+      <ul class="servicio-list">
+        <li>Evaluación inicial por feedback y encuestas</li>
+        <li>Plan de entrenamiento + plan nutricional</li>
+        <li>Ajustes semanales y mensuales</li>
+        <li>3 sesiones semanales vía video-llamada</li>
+        <li>Seguimiento constante semanal</li>
+      </ul>
+    </div>
+    <div class="servicio-card reveal">
+      <div class="servicio-icon">🏋️</div>
+      <div class="servicio-title">Asesoría Presencial</div>
+      <ul class="servicio-list">
+        <li>Valoración antropométrica presencial</li>
+        <li>Entrenamiento guiado individual</li>
+        <li>Plan nutricional + hábitos según objetivo</li>
+        <li>Seguimiento virtual y presencial</li>
+        <li>Corrección de técnica, posturas y pesos</li>
+        <li>Soporte vía WhatsApp 24/7</li>
+      </ul>
+    </div>
+    <div class="servicio-card reveal">
+      <div class="servicio-icon">🧓</div>
+      <div class="servicio-title">Asesoría Adulto Mayor</div>
+      <div class="servicio-price">$350.000</div>
+      <ul class="servicio-list">
+        <li>Programas terapéuticos especializados</li>
+        <li>Mejora de fuerza, equilibrio y movilidad</li>
+        <li>Prevención de caídas y autonomía</li>
+        <li>Orientado a calidad de vida</li>
+        <li>Respeto a patologías individuales</li>
+      </ul>
+    </div>
+    <div class="servicio-card reveal">
+      <div class="servicio-icon">🏆</div>
+      <div class="servicio-title">Asesoría Culturismo</div>
+      <ul class="servicio-list">
+        <li>Hipertrofia, recomposición y pérdida de grasa</li>
+        <li>Preparación estética competitiva</li>
+        <li>Plan de alimentación personalizado</li>
+        <li>Asesoramiento en suplementación</li>
+        <li>Clases de posing y pasarela (mujeres)</li>
+        <li>Acompañamiento 1 a 1</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section class="proceso">
+  <div class="section-label reveal">¿Cómo Trabajamos?</div>
+  <p class="section-sub reveal">Tu proceso, paso a paso</p>
+  <div class="proceso-steps">
+    <div class="step reveal"><div class="step-num">1</div><p>Evaluamos tu punto de partida</p></div>
+    <div class="step reveal"><div class="step-num">2</div><p>Definimos objetivos realistas</p></div>
+    <div class="step reveal"><div class="step-num">3</div><p>Te asignamos la entrenadora ideal</p></div>
+    <div class="step reveal"><div class="step-num">4</div><p>Te acompañamos en todo el proceso</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="testimonios" id="testimonios">
+  <div style="text-align:center;margin-bottom:56px">
+    <div class="section-label reveal">Lo Que Dicen Nuestras Clientas</div>
+    <p class="section-sub reveal">Resultados reales, personas reales</p>
+  </div>
+  <div style="overflow:hidden">
+    <div class="testimonios-track">
+      <div class="testimonio-card"><div class="stars">★★★★★</div><p class="testimonio-text">Llevaba años sin poder mantener una rutina. Con GENFIT encontré el acompañamiento que necesitaba. ¡Bajé 8 kg en 4 meses de forma saludable!</p><div class="testimonio-author"><div class="author-avatar">L</div><div><div class="author-name">Laura M.</div><div class="author-detail">Asesoría Online · 4 meses</div></div></div></div>
+      <div class="testimonio-card"><div class="stars">★★★★★</div><p class="testimonio-text">Maurene entiende cada limitación de mi cuerpo. Después de una lesión en la rodilla, me ayudó a volver al ejercicio de manera segura y progresiva.</p><div class="testimonio-author"><div class="author-avatar">C</div><div><div class="author-name">Carlos R.</div><div class="author-detail">Readaptación · 3 meses</div></div></div></div>
+      <div class="testimonio-card"><div class="stars">★★★★★</div><p class="testimonio-text">Michell me preparó para mi primera competencia de bikini fitness. El plan de posing y pasarela fue clave. ¡Quedé en el top 3!</p><div class="testimonio-author"><div class="author-avatar">S</div><div><div class="author-name">Sara V.</div><div class="author-detail">Culturismo · 6 meses</div></div></div></div>
+      <div class="testimonio-card"><div class="stars">★★★★★</div><p class="testimonio-text">A mis 68 años pensaba que ya no podría entrenar. El programa adulto mayor me devolvió la fuerza y el equilibrio que había perdido. ¡Increíble!</p><div class="testimonio-author"><div class="author-avatar">A</div><div><div class="author-name">Amanda T.</div><div class="author-detail">Adulto Mayor · 5 meses</div></div></div></div>
+      <div class="testimonio-card"><div class="stars">★★★★★</div><p class="testimonio-text">El seguimiento semanal marca la diferencia. No es solo un plan y ya; hay acompañamiento real con ajustes constantes según mis avances.</p><div class="testimonio-author"><div class="author-avatar">P</div><div><div class="author-name">Paula G.</div><div class="author-detail">Presencial · 2 meses</div></div></div></div>
+      <!-- duplicate for loop -->
+      <div class="testimonio-card"><div class="stars">★★★★★</div><p class="testimonio-text">Llevaba años sin poder mantener una rutina. Con GENFIT encontré el acompañamiento que necesitaba. ¡Bajé 8 kg en 4 meses de forma saludable!</p><div class="testimonio-author"><div class="author-avatar">L</div><div><div class="author-name">Laura M.</div><div class="author-detail">Asesoría Online · 4 meses</div></div></div></div>
+      <div class="testimonio-card"><div class="stars">★★★★★</div><p class="testimonio-text">Maurene entiende cada limitación de mi cuerpo. Después de una lesión en la rodilla, me ayudó a volver al ejercicio de manera segura y progresiva.</p><div class="testimonio-author"><div class="author-avatar">C</div><div><div class="author-name">Carlos R.</div><div class="author-detail">Readaptación · 3 meses</div></div></div></div>
+      <div class="testimonio-card"><div class="stars">★★★★★</div><p class="testimonio-text">Michell me preparó para mi primera competencia de bikini fitness. El plan de posing y pasarela fue clave. ¡Quedé en el top 3!</p><div class="testimonio-author"><div class="author-avatar">S</div><div><div class="author-name">Sara V.</div><div class="author-detail">Culturismo · 6 meses</div></div></div></div>
+      <div class="testimonio-card"><div class="stars">★★★★★</div><p class="testimonio-text">A mis 68 años pensaba que ya no podría entrenar. El programa adulto mayor me devolvió la fuerza y el equilibrio que había perdido. ¡Increíble!</p><div class="testimonio-author"><div class="author-avatar">A</div><div><div class="author-name">Amanda T.</div><div class="author-detail">Adulto Mayor · 5 meses</div></div></div></div>
+      <div class="testimonio-card"><div class="stars">★★★★★</div><p class="testimonio-text">El seguimiento semanal marca la diferencia. No es solo un plan y ya; hay acompañamiento real con ajustes constantes según mis avances.</p><div class="testimonio-author"><div class="author-avatar">P</div><div><div class="author-name">Paula G.</div><div class="author-detail">Presencial · 2 meses</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUIÉN -->
+<section class="publico">
+  <div style="text-align:center;margin-bottom:64px">
+    <div class="section-label reveal">¿Para Quién Es Este Servicio?</div>
+    <p class="section-sub reveal">Si te identificas con alguno, eres bienvenida</p>
+  </div>
+  <div class="publico-grid">
+    <div class="publico-item reveal"><span class="check">✦</span> Personas que quieren resultados reales</div>
+    <div class="publico-item reveal"><span class="check">✦</span> Personas que valoran la guía profesional</div>
+    <div class="publico-item reveal"><span class="check">✦</span> Personas comprometidas con su proceso</div>
+    <div class="publico-item reveal"><span class="check">✦</span> Mujeres que desean hipertrofia, definición y mejora estética</div>
+    <div class="publico-item reveal"><span class="check">✦</span> Personas que buscan pérdida de grasa sin riesgo para su salud</div>
+    <div class="publico-item reveal"><span class="check">✦</span> Adultos mayores que quieren fuerza, equilibrio y funcionalidad</div>
+    <div class="publico-item reveal"><span class="check">✦</span> Personas en retorno al ejercicio o readaptación</div>
+    <div class="publico-item reveal"><span class="check">✦</span> Atletas que quieran mejorar rendimiento o competir en fisiculturismo</div>
+  </div>
+</section>
+
+<!-- FORMULARIO -->
+<section class="form-section" id="registro">
+  <div style="text-align:center;margin-bottom:56px">
+    <div class="section-label reveal">Empieza Tu Proceso</div>
+    <p class="section-sub reveal">Cuéntanos sobre ti y te contactamos</p>
+  </div>
+  <div class="form-wrapper">
+    <p class="form-desc reveal">Completa el formulario y nos pondremos en contacto contigo para asignarte la entrenadora ideal y definir tu plan de trabajo.</p>
+    <form id="genfitForm" class="reveal">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="nombre">Nombre</label>
+          <input class="form-input" type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="apellido">Apellido</label>
+          <input class="form-input" type="text" id="apellido" name="apellido" placeholder="Tu apellido" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edad">Edad</label>
+          <input class="form-input" type="number" id="edad" name="edad" placeholder="Tu edad" min="10" max="100" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="correo">Correo Electrónico</label>
+          <input class="form-input" type="email" id="correo" name="correo" placeholder="tu@correo.com" required>
+        </div>
+        <div class="form-group full">
+          <label class="form-label" for="objetivo">¿Cuál es tu objetivo?</label>
+          <select class="form-input" id="objetivo" name="objetivo">
+            <option value="">Selecciona tu objetivo</option>
+            <option value="Pérdida de grasa">Pérdida de grasa</option>
+            <option value="Hipertrofia / Ganar músculo">Hipertrofia / Ganar músculo</option>
+            <option value="Recomposición corporal">Recomposición corporal</option>
+            <option value="Preparación competitiva / Culturismo">Preparación competitiva / Culturismo</option>
+            <option value="Programa adulto mayor">Programa adulto mayor</option>
+            <option value="Readaptación / Rehabilitación">Readaptación / Rehabilitación</option>
+            <option value="Otro">Otro</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label class="form-label" for="modalidad">Modalidad preferida</label>
+          <select class="form-input" id="modalidad" name="modalidad">
+            <option value="">Selecciona modalidad</option>
+            <option value="Asesoría Online">Asesoría Online</option>
+            <option value="Asesoría Presencial">Asesoría Presencial</option>
+            <option value="Sin preferencia">Sin preferencia</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="form-submit">✦ Enviar Solicitud</button>
+      <p class="form-note">Tu información es confidencial y solo será usada para contactarte.</p>
+    </form>
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">✦</div>
+      <div class="success-title">¡Solicitud Enviada!</div>
+      <p class="success-text">Gracias por confiar en GENFIT. Recibimos tu información y nos pondremos en contacto muy pronto. ¡Bienvenida al proceso!</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contacto" id="contacto">
+  <div class="section-label reveal">Contáctanos</div>
+  <p class="section-sub reveal">Estamos aquí para ti</p>
+  <div class="contact-strip reveal">
+    <div class="contact-item">
+      <div class="contact-icon">📱</div>
+      <div class="contact-label">Maurene</div>
+      <div class="contact-value">311 277 5234</div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">📱</div>
+      <div class="contact-label">Michell</div>
+      <div class="contact-value">312 475 1574</div>
+    </div>
+  </div>
+  <div class="social-bar reveal">
+    <a href="https://instagram.com/genfit" target="_blank" class="social-btn">📷 Instagram</a>
+    <a href="https://wa.me/573112775234" target="_blank" class="social-btn">💬 WhatsApp Maurene</a>
+    <a href="https://wa.me/573124751574" target="_blank" class="social-btn">💬 WhatsApp Michell</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><span>GENFIT</span> · Entrenadoras certificadas · Bogotá, Colombia · © 2025 Todos los derechos reservados</p>
+</footer>
+
+<!-- WHATSAPP FLOTANTE -->
+<div class="wa-float">
+  <span class="wa-tooltip">¡Escríbenos ya!</span>
+  <a class="wa-btn" href="https://wa.me/573112775234" target="_blank" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const ro = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); ro.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => ro.observe(el));
+
+  // Counter animation
+  const co = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      let start = null;
+      const animate = (ts) => {
+        if (!start) start = ts;
+        const prog = Math.min((ts - start) / 1800, 1);
+        el.textContent = Math.floor(prog * target) + suffix;
+        if (prog < 1) requestAnimationFrame(animate);
+      };
+      requestAnimationFrame(animate);
+      co.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => co.observe(el));
+
+  // Form submit → mailto
+  document.getElementById('genfitForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const v = (id) => document.getElementById(id).value;
+    const subject = encodeURIComponent('Nueva Solicitud GENFIT - ' + v('nombre') + ' ' + v('apellido'));
+    const body = encodeURIComponent(
+      'Nueva solicitud recibida desde el sitio web de GENFIT\n\n' +
+      '═══════════════════════════════\n' +
+      'DATOS DEL CLIENTE\n' +
+      '═══════════════════════════════\n' +
+      'Nombre:     ' + v('nombre') + ' ' + v('apellido') + '\n' +
+      'Edad:       ' + v('edad') + ' años\n' +
+      'Correo:     ' + v('correo') + '\n' +
+      'Objetivo:   ' + (v('objetivo') || 'No especificado') + '\n' +
+      'Modalidad:  ' + (v('modalidad') || 'No especificada') + '\n' +
+      '═══════════════════════════════\n\n' +
+      'Responde a este correo o contáctalo directamente.'
+    );
+    // 👇 CAMBIA ESTE CORREO POR EL TUYO
+    window.location.href = 'mailto:tucorreo@ejemplo.com?subject=' + subject + '&body=' + body;
+    document.getElementById('genfitForm').style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+  });
+</script>
+</body>
+</html>
